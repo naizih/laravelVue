@@ -2102,8 +2102,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      tasks: {}
+    };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios.get('http://192.168.56.102:8000/tasklist').then(function (response) {
+      return _this.tasks = response.data;
+    })["catch"](function (error) {
+      return console.log(error);
+    });
+  },
   mounted: function mounted() {
     console.log('Component mounted.');
   }
@@ -37704,34 +37717,20 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "container" }, [
+    _c(
+      "ul",
+      { staticClass: "list-group-item" },
+      _vm._l(_vm.tasks, function (task) {
+        return _c("li", { key: task.id, staticClass: "list-group-item" }, [
+          _c("a", { attrs: { href: "#" } }, [_vm._v(" " + _vm._s(task.task))]),
+        ])
+      }),
+      0
+    ),
+  ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("ul", { staticClass: "list-group-item" }, [
-        _c("li", { staticClass: "list-group-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("List 1")]),
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "list-group-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("List 2")]),
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "list-group-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("List 3")]),
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "list-group-item" }, [
-          _c("a", { attrs: { href: "#" } }, [_vm._v("List 4")]),
-        ]),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
